@@ -8,7 +8,7 @@
           "name": "名称",
           "time_entity": "Last sip time 实体",
           "volume_entity": "Last sip volume 实体",
-          "bottle_serial": "水杯序列号",
+          "serial_entity": "水杯序列号实体",
           "username": "邮箱",
           "password": "密码",
           "time_zone": "时区"
@@ -23,7 +23,7 @@
       }
     },
     "error": {
-      "invalid_source": "请选择同一水杯的受支持实体，并检查序列号和时区。",
+      "invalid_source": "请选择同一水杯的饮水时间、饮水量和序列号实体，并检查时区。",
       "invalid_auth": "认证失败或账号不一致。",
       "cannot_connect": "无法连接云端。"
     },

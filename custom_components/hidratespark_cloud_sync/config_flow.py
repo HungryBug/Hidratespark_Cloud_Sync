@@ -7,7 +7,7 @@ from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from .api import HidrateSparkCloudClient, AuthenticationError, CloudError
 from .const import DOMAIN
-from .source import get_source
+from .source import get_source, source_serial_number
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
@@ -16,12 +16,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
         if user_input:
             data = dict(user_input)
-            options = {key: data.pop(key) for key in ("time_entity", "volume_entity")}
-            data["bottle_serial"] = data["bottle_serial"].strip().upper()
+            options = {key: data.pop(key) for key in ("time_entity", "volume_entity", "serial_entity")}
             data["installation_id"] = str(uuid.uuid4())
             try:
                 ZoneInfo(data["time_zone"])
                 source = get_source(self.hass, options)
+                data["bottle_serial"] = source_serial_number(self.hass, options)
                 if not source.serial_number or source.serial_number.upper() != data["bottle_serial"]:
                     raise ValueError("Serial does not match source")
                 await self.async_set_unique_id(data["bottle_serial"])
@@ -40,7 +40,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema({vol.Required("name", default="HidrateSpark Home"): str,
             vol.Required("time_entity"): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor", integration="ha_hidratespark")),
             vol.Required("volume_entity"): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor", integration="ha_hidratespark")),
-            vol.Required("bottle_serial"): str, vol.Required("username"): str,
+            vol.Required("serial_entity"): selector.EntitySelector(selector.EntitySelectorConfig(domain="sensor", integration="ha_hidratespark")),
+            vol.Required("username"): str,
             vol.Required("password"): selector.TextSelector(selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)),
             vol.Required("time_zone", default=self.hass.config.time_zone): str})
         return self.async_show_form(step_id="user", data_schema=schema, errors=errors)

@@ -8,7 +8,7 @@
           "name": "Name",
           "time_entity": "Last sip time entity",
           "volume_entity": "Last sip volume entity",
-          "bottle_serial": "Bottle serial number",
+          "serial_entity": "Bottle serial number entity",
           "username": "Email",
           "password": "Password",
           "time_zone": "Time zone"
@@ -23,7 +23,7 @@
       }
     },
     "error": {
-      "invalid_source": "Check supported source sensors, matching serial number and time zone.",
+      "invalid_source": "Select the time, volume and serial number entities from the same supported bottle, and check the time zone.",
       "invalid_auth": "Authentication failed or account changed.",
       "cannot_connect": "Cannot connect to cloud."
     },

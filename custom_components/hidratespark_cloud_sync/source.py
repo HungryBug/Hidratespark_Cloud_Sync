@@ -14,6 +14,25 @@ def source_entry_id(hass, options):
     return entries[0].config_entry_id
 
 
+def source_serial_number(hass, options):
+    """Validate the selected serial sensor and return its current value."""
+    registry = er.async_get(hass)
+    serial = registry.async_get(options["serial_entity"])
+    source_id = source_entry_id(hass, options)
+    if (
+        serial is None
+        or serial.domain != "sensor"
+        or serial.platform != SOURCE_DOMAIN
+        or not serial.unique_id.endswith("serial_number")
+        or serial.config_entry_id != source_id
+    ):
+        raise ValueError("Serial sensor must belong to the same bottle")
+    state = hass.states.get(options["serial_entity"])
+    if state is None or state.state in ("unknown", "unavailable", ""):
+        raise ValueError("Bottle serial number is unavailable")
+    return state.state.strip().upper()
+
+
 def get_source(hass, options):
     source_id = source_entry_id(hass, options)
     source = hass.data.get(SOURCE_DOMAIN, {}).get(source_id)
