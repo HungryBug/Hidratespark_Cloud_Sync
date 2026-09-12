@@ -4,6 +4,8 @@ Home Assistant companion integration that uploads HidrateSpark bottle sips to Hi
 
 ## Install with HACS
 
+[![Open your Home Assistant instance and open this repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=HungryBug&repository=Hidratespark_Cloud_Sync&category=integration)
+
 1. Install and configure HA-Hidratespark through HACS first. Confirm the bottle sensors and serial number are available.
 2. HACS → menu → Custom repositories: add `https://github.com/HungryBug/Hidratespark_Cloud_Sync`, category **Integration**.
 3. Download **HidrateSpark Cloud Sync** and restart Home Assistant.
