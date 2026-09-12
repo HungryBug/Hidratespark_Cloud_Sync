@@ -1,0 +1,48 @@
+{
+  "title": "HidrateSpark Cloud Sync",
+  "config": {
+    "step": {
+      "user": {
+        "title": "HidrateSpark Cloud Sync",
+        "data": {
+          "name": "名称",
+          "time_entity": "Last sip time 实体",
+          "volume_entity": "Last sip volume 实体",
+          "bottle_serial": "水杯序列号",
+          "username": "邮箱",
+          "password": "密码",
+          "time_zone": "时区"
+        }
+      },
+      "reauth_confirm": {
+        "title": "重新认证",
+        "data": {
+          "username": "邮箱",
+          "password": "密码"
+        }
+      }
+    },
+    "error": {
+      "invalid_source": "请选择同一水杯的受支持实体，并检查序列号和时区。",
+      "invalid_auth": "认证失败或账号不一致。",
+      "cannot_connect": "无法连接云端。"
+    },
+    "abort": {
+      "already_configured": "此水杯已配置。",
+      "reauth_successful": "认证已更新。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "status": {
+        "name": "云同步状态"
+      },
+      "pending": {
+        "name": "待上传数量"
+      },
+      "last_success": {
+        "name": "上次成功同步时间"
+      }
+    }
+  }
+}

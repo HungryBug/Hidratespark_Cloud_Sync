@@ -1,0 +1,16 @@
+{
+  "domain": "hidratespark_cloud_sync",
+  "name": "HidrateSpark Cloud Sync",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/HungryBug/HidrateSpark-Cloud-Sync",
+  "dependencies": [
+    "ha_hidratespark"
+  ],
+  "iot_class": "cloud_push",
+  "requirements": [],
+  "codeowners": [
+    "@HungryBug"
+  ],
+  "issue_tracker": "https://github.com/HungryBug/HidrateSpark-Cloud-Sync/issues"
+}

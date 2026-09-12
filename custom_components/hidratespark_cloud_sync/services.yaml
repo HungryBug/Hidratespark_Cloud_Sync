@@ -1,0 +1,9 @@
+retry_failed:
+  name: Retry failed uploads
+  description: Return rejected records to the queue. Uncertain writes are reconciled without blindly repeating a POST.
+  fields:
+    entry_id:
+      name: Config entry ID
+      required: true
+      selector:
+        text:
