@@ -1,5 +1,5 @@
 {
   "name": "HidrateSpark Cloud Sync",
   "homeassistant": "2026.3.0",
-  "content_in_root": true
+  "content_in_root": false
 }

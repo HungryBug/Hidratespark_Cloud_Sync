@@ -34,4 +34,4 @@ This is an unofficial integration. Credentials are configured locally in Home As
 
 ## Repository layout
 
-Integration files live directly in the repository root (`content_in_root: true`). Home Assistant domain remains `hidratespark_cloud_sync`; HACS installs the files under that domain. Version 1.0.1 adopts this layout. Use the new repository URL above for HACS.
+Integration files are stored in `custom_components/hidratespark_cloud_sync/`, with `hacs.json` and this README at the repository root. HACS uses `content_in_root: false`. Version 1.0.2 restores this standard layout; the Home Assistant domain remains `hidratespark_cloud_sync`.
