@@ -31,7 +31,3 @@ This is an unofficial integration. Credentials are configured locally in Home As
 先通过 HACS 安装并配置原 HA-Hidratespark，然后在 HACS 自定义存储库添加本仓库，类型选择“集成”。下载后重启 HA，再到“设置 → 设备与服务”添加 HidrateSpark Cloud Sync。每只水杯单独配置账号、序列号、对应实体及真实时区。
 
 状态实体用于查看队列和失败信息。不确定是否已写入云端的记录不会盲目重发，需要人工核实。队列保存在 HA `.storage` 中，不受 HACS 代码更新覆盖。
-
-## Repository layout
-
-Integration files are stored in `custom_components/hidratespark_cloud_sync/`, with `hacs.json` and this README at the repository root. HACS uses `content_in_root: false`. Version 1.0.2 restores this standard layout; the Home Assistant domain remains `hidratespark_cloud_sync`.
