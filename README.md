@@ -5,7 +5,7 @@ Home Assistant companion integration that uploads HidrateSpark bottle sips to Hi
 ## Install with HACS
 
 1. Install and configure HA-Hidratespark through HACS first. Confirm the bottle sensors and serial number are available.
-2. HACS → menu → Custom repositories: add `https://github.com/HungryBug/HidrateSpark-Cloud-Sync`, category **Integration**.
+2. HACS → menu → Custom repositories: add `https://github.com/HungryBug/Hidratespark_Cloud_Sync`, category **Integration**.
 3. Download **HidrateSpark Cloud Sync** and restart Home Assistant.
 4. Settings → Devices & services → Add integration → **HidrateSpark Cloud Sync**.
 5. Select the same bottle's Last sip time and Last sip volume sensors. Enter its serial number, HidrateSpark credentials and IANA time zone. Add a separate entry for each bottle.
@@ -31,3 +31,7 @@ This is an unofficial integration. Credentials are configured locally in Home As
 先通过 HACS 安装并配置原 HA-Hidratespark，然后在 HACS 自定义存储库添加本仓库，类型选择“集成”。下载后重启 HA，再到“设置 → 设备与服务”添加 HidrateSpark Cloud Sync。每只水杯单独配置账号、序列号、对应实体及真实时区。
 
 状态实体用于查看队列和失败信息。不确定是否已写入云端的记录不会盲目重发，需要人工核实。队列保存在 HA `.storage` 中，不受 HACS 代码更新覆盖。
+
+## Repository layout
+
+Integration files live directly in the repository root (`content_in_root: true`). Home Assistant domain remains `hidratespark_cloud_sync`; HACS installs the files under that domain. Version 1.0.1 adopts this layout. Use the new repository URL above for HACS.

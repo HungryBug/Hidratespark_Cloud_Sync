@@ -1,9 +1,9 @@
 {
   "domain": "hidratespark_cloud_sync",
   "name": "HidrateSpark Cloud Sync",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "config_flow": true,
-  "documentation": "https://github.com/HungryBug/HidrateSpark-Cloud-Sync",
+  "documentation": "https://github.com/HungryBug/Hidratespark_Cloud_Sync",
   "dependencies": [
     "ha_hidratespark"
   ],
@@ -12,5 +12,5 @@
   "codeowners": [
     "@HungryBug"
   ],
-  "issue_tracker": "https://github.com/HungryBug/HidrateSpark-Cloud-Sync/issues"
+  "issue_tracker": "https://github.com/HungryBug/Hidratespark_Cloud_Sync/issues"
 }
