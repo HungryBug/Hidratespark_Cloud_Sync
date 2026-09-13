@@ -11,7 +11,10 @@
           "serial_entity": "水杯序列号实体",
           "username": "邮箱",
           "password": "密码",
-          "time_zone": "时区"
+          "time_zone": "时区",
+          "apple_health_token": "Apple 健康桥接令牌（请复制到快捷指令）",
+          "apple_health_enabled": "启用 Apple 健康桥接",
+          "apple_health_debounce": "批次就绪延迟（秒）"
         }
       },
       "reauth_confirm": {
@@ -20,16 +23,23 @@
           "username": "邮箱",
           "password": "密码"
         }
-      }
+      },
+      "reconfigure": {"title": "Apple 健康桥接", "menu_options": {"bridge_settings": "桥接设置", "bridge_regenerate": "重新生成令牌"}},
+      "bridge_settings": {"title": "Apple 健康桥接设置", "data": {"token": "Bearer 令牌", "enabled": "启用", "debounce_seconds": "批次就绪延迟（秒）"}},
+      "bridge_regenerate": {"title": "重新生成 Apple 健康桥接令牌", "description": "请先复制新令牌，再确认。确认后旧令牌立即失效。", "data": {"new_token": "新令牌", "confirm": "立即停用旧令牌"}}
     },
     "error": {
       "invalid_source": "请选择同一水杯的饮水时间、饮水量和序列号实体，并检查时区。",
       "invalid_auth": "认证失败或账号不一致。",
-      "cannot_connect": "无法连接云端。"
+      "cannot_connect": "无法连接云端。",
+      "invalid_token": "令牌至少需要 32 个字符。",
+      "confirmation_required": "请确认后再替换令牌。"
     },
     "abort": {
       "already_configured": "此水杯已配置。",
-      "reauth_successful": "认证已更新。"
+      "reauth_successful": "认证已更新。",
+      "bridge_updated": "Apple 健康桥接已更新。",
+      "bridge_regenerated": "Apple 健康桥接令牌已重新生成。"
     }
   },
   "entity": {
@@ -42,7 +52,12 @@
       },
       "last_success": {
         "name": "上次成功同步时间"
-      }
+      },
+      "bridge_status": {"name": "状态"},
+      "bridge_pending": {"name": "待同步记录"},
+      "bridge_last_success": {"name": "上次成功同步"},
+      "bridge_synced_today": {"name": "今日已同步"},
+      "bridge_oldest_pending": {"name": "最早待同步记录"}
     }
   }
 }

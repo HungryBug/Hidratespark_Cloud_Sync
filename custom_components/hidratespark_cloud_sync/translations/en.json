@@ -11,7 +11,10 @@
           "serial_entity": "Bottle serial number entity",
           "username": "Email",
           "password": "Password",
-          "time_zone": "Time zone"
+          "time_zone": "Time zone",
+          "apple_health_token": "Apple Health Bridge token (copy this to your Shortcut)",
+          "apple_health_enabled": "Enable Apple Health Bridge",
+          "apple_health_debounce": "Batch-ready delay (seconds)"
         }
       },
       "reauth_confirm": {
@@ -20,16 +23,23 @@
           "username": "Email",
           "password": "Password"
         }
-      }
+      },
+      "reconfigure": {"title": "Apple Health Bridge", "menu_options": {"bridge_settings": "Bridge settings", "bridge_regenerate": "Regenerate token"}},
+      "bridge_settings": {"title": "Apple Health Bridge settings", "data": {"token": "Bearer token", "enabled": "Enabled", "debounce_seconds": "Batch-ready delay (seconds)"}},
+      "bridge_regenerate": {"title": "Regenerate Apple Health Bridge token", "description": "Copy the new token, then confirm. The old token stops working immediately after confirmation.", "data": {"new_token": "New token", "confirm": "Invalidate the old token now"}}
     },
     "error": {
       "invalid_source": "Select the time, volume and serial number entities from the same supported bottle, and check the time zone.",
       "invalid_auth": "Authentication failed or account changed.",
-      "cannot_connect": "Cannot connect to cloud."
+      "cannot_connect": "Cannot connect to cloud.",
+      "invalid_token": "Token must contain at least 32 characters.",
+      "confirmation_required": "Confirm before replacing the token."
     },
     "abort": {
       "already_configured": "Bottle already configured.",
-      "reauth_successful": "Authentication updated."
+      "reauth_successful": "Authentication updated.",
+      "bridge_updated": "Apple Health Bridge updated.",
+      "bridge_regenerated": "Apple Health Bridge token regenerated."
     }
   },
   "entity": {
@@ -42,7 +52,12 @@
       },
       "last_success": {
         "name": "Last successful sync"
-      }
+      },
+      "bridge_status": {"name": "Status"},
+      "bridge_pending": {"name": "Pending records"},
+      "bridge_last_success": {"name": "Last successful sync"},
+      "bridge_synced_today": {"name": "Synced today"},
+      "bridge_oldest_pending": {"name": "Oldest pending record"}
     }
   }
 }
