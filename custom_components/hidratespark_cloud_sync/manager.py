@@ -28,7 +28,7 @@ def drink_event(timestamp, volume, serial, clock):
 
 
 class SyncManager:
-    def __init__(self, hass, entry, client):
+    def __init__(self, hass, entry, client, health_bridge=None):
         self.hass, self.entry, self.client = hass, entry, client
         self.store = Store(hass, 1, f"{DOMAIN}.{entry.entry_id}")
         self.signal = f"{DOMAIN}_{entry.entry_id}"
@@ -44,6 +44,7 @@ class SyncManager:
         self.seen = set()
         self.auth_failed = False
         self.stopping = False
+        self.health_bridge = health_bridge
 
     async def save(self):
         await self.store.async_save({"pending": self.pending, "synced_event_ids": self.synced[-2000:],
@@ -106,6 +107,8 @@ class SyncManager:
                 self.status, self.last_error = "error", "Invalid source sip"
                 self.changed()
                 continue
+            if self.health_bridge:
+                self.hass.async_create_task(self.health_bridge.async_enqueue(dict(item), self.entry))
             if item["event_id"] in known:
                 continue
             self.clock += 1500
@@ -140,6 +143,8 @@ class SyncManager:
                         self.failed.append(item)
                         self.last_error = str(err)
                         await self.save()
+                        if self.health_bridge:
+                            await self.health_bridge.async_update_cloud(item, "failed")
                         continue
                     except UncertainError as err:
                         self.pending.remove(item)
@@ -147,6 +152,8 @@ class SyncManager:
                         self.failed.append(item)
                         self.last_error = str(err)
                         await self.save()
+                        if self.health_bridge:
+                            await self.health_bridge.async_update_cloud(item, "uncertain")
                         continue
                     except RetryError as err:
                         attempts += 1
@@ -162,6 +169,8 @@ class SyncManager:
                     attempts = 0
                     self.last_error = None
                     await self.save()
+                    if self.health_bridge:
+                        await self.health_bridge.async_update_cloud(item, "synced")
                 if not self.auth_failed:
                     self.status = "error" if self.failed else "idle"
                 self.changed()

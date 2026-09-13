@@ -7,3 +7,20 @@ retry_failed:
       required: true
       selector:
         text:
+requeue_apple_health:
+  name: Requeue Apple Health records
+  description: Requeue previously acknowledged records. This may create duplicates unless the Shortcut deduplicates by event ID.
+  fields:
+    start:
+      name: Start
+      selector:
+        datetime:
+    end:
+      name: End
+      selector:
+        datetime:
+    bottle:
+      name: Bottle
+      description: Optional bottle name, serial number, or config entry ID.
+      selector:
+        text:
