@@ -1,5 +1,9 @@
 # HidrateSpark Cloud Sync
 
+<p align="center">
+  <img src="custom_components/hidratespark_cloud_sync/brand/icon@2x.png" alt="HidrateSpark Cloud Sync" width="180">
+</p>
+
 Home Assistant companion integration that uploads HidrateSpark bottle sips to HidrateSpark Cloud. Requires Home Assistant 2026.3+ and the [HA-Hidratespark BLE integration](https://github.com/bditter/HA-Hidratespark).
 
 ## Install with HACS
