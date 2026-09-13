@@ -172,7 +172,7 @@ class SyncManager:
                     if self.health_bridge:
                         await self.health_bridge.async_update_cloud(item, "synced")
                 if not self.auth_failed:
-                    self.status = "error" if self.failed else "idle"
+                    self.status = "idle"
                 self.changed()
             except Exception:
                 self.status, self.last_error = "error", "Queue processing failed; see persisted pending records"
