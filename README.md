@@ -25,7 +25,7 @@ Update through HACS, then restart Home Assistant. No manual file copying or YAML
 - Separate persistent queue per bottle, serial uploads, stable sip IDs and retry backoff.
 - Existing records become the initial baseline; queued records survive reloads/restarts.
 - Cloud sync status, Pending uploads and Last successful sync sensors expose progress. Authentication failures request reauthentication.
-- Permanent/uncertain failures remain stored and appear as `failed_uploads` on the status sensor. Use `hidratespark_cloud_sync.retry_failed` with the Cloud Sync config entry ID to retry/reconcile them.
+- Permanent/uncertain failures remain stored and appear as `failed_uploads` on the status sensor, but they do not keep the live status at `error` after later uploads succeed. Use `hidratespark_cloud_sync.retry_failed` with the Cloud Sync config entry ID to retry/reconcile them.
 - A timed-out write is queried by its stable clientSipId before any further action. If its outcome cannot be established, it is retained for review and never blindly reposted. The server has no verified exactly-once guarantee.
 
 ## Apple Health Bridge
