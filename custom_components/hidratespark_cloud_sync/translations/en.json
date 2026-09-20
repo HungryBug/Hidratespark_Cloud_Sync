@@ -53,6 +53,9 @@
       "last_success": {
         "name": "Last successful sync"
       },
+      "last_synced_volume": {
+        "name": "Latest synced drink volume"
+      },
       "bridge_status": {"name": "Status"},
       "bridge_pending": {"name": "Pending records"},
       "bridge_last_success": {"name": "Last successful sync"},
