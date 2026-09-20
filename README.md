@@ -24,7 +24,7 @@ Update through HACS, then restart Home Assistant. No manual file copying or YAML
 
 - Separate persistent queue per bottle, serial uploads, stable sip IDs and retry backoff.
 - Existing records become the initial baseline; queued records survive reloads/restarts.
-- Cloud sync status, Pending uploads and Last successful sync sensors expose progress. Authentication failures request reauthentication.
+- Cloud sync status, Pending uploads, Last successful sync and Latest synced drink volume sensors expose progress. Authentication failures request reauthentication.
 - Permanent/uncertain failures remain stored and appear as `failed_uploads` on the status sensor, but they do not keep the live status at `error` after later uploads succeed. Use `hidratespark_cloud_sync.retry_failed` with the Cloud Sync config entry ID to retry/reconcile them.
 - A timed-out write is queried by its stable clientSipId before any further action. If its outcome cannot be established, it is retained for review and never blindly reposted. The server has no verified exactly-once guarantee.
 
@@ -54,6 +54,6 @@ This is an unofficial integration. Credentials are configured locally in Home As
 
 先通过 HACS 安装并配置原 HA-Hidratespark，然后在 HACS 自定义存储库添加本仓库，类型选择“集成”。下载后重启 HA，再到“设置 → 设备与服务”添加 HidrateSpark Cloud Sync。请选择同一只水杯的 Last sip time、Last sip volume 和 Serial number 实体；每只水杯单独配置账号和真实时区。首次配置会显示所有水杯共用的 Apple 健康桥接令牌，请复制到快捷指令；之后可通过“重新配置”查看、修改或重新生成。
 
-状态实体用于查看队列和失败信息。不确定是否已写入云端的记录不会盲目重发，需要人工核实。队列保存在 HA `.storage` 中，不受 HACS 代码更新覆盖。
+状态实体用于查看队列和失败信息；每只水杯还会显示本次成功同步的喝水容量（mL）。不确定是否已写入云端的记录不会盲目重发，需要人工核实。队列保存在 HA `.storage` 中，不受 HACS 代码更新覆盖。
 
 Apple 健康桥接采用至少一次投递。快捷指令写入 HealthKit 前必须按事件 ID 去重，成功后再 ACK；重复 ACK 安全。请通过 WireGuard 等 VPN 使用 HTTPS，不要把未加密的 8123 端口暴露到公网。
