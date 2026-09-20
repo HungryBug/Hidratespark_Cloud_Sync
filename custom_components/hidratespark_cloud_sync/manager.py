@@ -34,6 +34,7 @@ class SyncManager:
         self.signal = f"{DOMAIN}_{entry.entry_id}"
         self.pending, self.synced, self.failed = [], [], []
         self.last_success = None
+        self.last_synced_volume = None
         self.status, self.last_error = "idle", None
         self.clock = 33000
         self.wake = asyncio.Event()
@@ -48,7 +49,8 @@ class SyncManager:
 
     async def save(self):
         await self.store.async_save({"pending": self.pending, "synced_event_ids": self.synced[-2000:],
-            "failed": self.failed, "last_success": self.last_success, "clock": self.clock})
+            "failed": self.failed, "last_success": self.last_success,
+            "last_synced_volume": self.last_synced_volume, "clock": self.clock})
 
     def changed(self):
         async_dispatcher_send(self.hass, self.signal)
@@ -60,6 +62,7 @@ class SyncManager:
             self.synced = data.get("synced_event_ids", [])
             self.failed = data.get("failed", [])
             self.last_success = data.get("last_success")
+            self.last_synced_volume = data.get("last_synced_volume")
             self.clock = data.get("clock", 33000)
         # Baseline the current ledger only on first installation. Existing queues recover.
         self.attach(baseline=data is None)
@@ -166,6 +169,7 @@ class SyncManager:
                     self.synced = (self.synced + [item["event_id"]])[-2000:]
                     self.seen.discard(item["event_id"])
                     self.last_success = datetime.now(timezone.utc).isoformat()
+                    self.last_synced_volume = item["volume_ml"]
                     attempts = 0
                     self.last_error = None
                     await self.save()

@@ -1,14 +1,15 @@
 """Per-bottle diagnostic entities."""
 from datetime import datetime
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
-from homeassistant.const import EntityCategory
+from homeassistant.const import EntityCategory, UnitOfVolume
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from .const import DOMAIN
 from .const import BRIDGE_SIGNAL
 from .health_bridge import async_get_bridge
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    async_add_entities(SyncSensor(entry, key) for key in ("status", "pending", "last_success"))
+    async_add_entities(SyncSensor(entry, key) for key in (
+        "status", "pending", "last_success", "last_synced_volume"))
     bridge = await async_get_bridge(hass)
     if bridge.sensor_owner is None:
         bridge.sensor_owner = entry.entry_id
@@ -29,6 +30,9 @@ class SyncSensor(SensorEntity):
         self._attr_device_info = {"identifiers": {(DOMAIN, entry.entry_id)}, "name": entry.title, "manufacturer": "HidrateSpark"}
         if key == "last_success":
             self._attr_device_class = SensorDeviceClass.TIMESTAMP
+        elif key == "last_synced_volume":
+            self._attr_device_class = SensorDeviceClass.VOLUME
+            self._attr_native_unit_of_measurement = UnitOfVolume.MILLILITERS
 
     async def async_added_to_hass(self):
         self.async_on_remove(async_dispatcher_connect(self.hass, self.manager.signal, self.async_write_ha_state))
@@ -39,6 +43,8 @@ class SyncSensor(SensorEntity):
             return self.manager.status
         if self.key == "pending":
             return len(self.manager.pending)
+        if self.key == "last_synced_volume":
+            return self.manager.last_synced_volume
         return datetime.fromisoformat(self.manager.last_success) if self.manager.last_success else None
 
     @property
